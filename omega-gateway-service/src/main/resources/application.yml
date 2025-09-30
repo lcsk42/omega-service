@@ -1,5 +1,3 @@
-server:
-  port: 18080
 spring:
   application:
     name: omega-gateway-service
@@ -16,19 +14,21 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes:
+        - id: root-to-doc
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/
+          filters:
+            - RedirectTo=302, /doc.html
+          order: -1
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  info:
-    git:
-      mode: full
-  metrics:
-    tags:
-      application: ${spring.application.name}
-
+framework:
+  gateway:
+    token-secret: 12121
+    allow-list:
+      - path: /
+        method: GET
 
 knife4j:
   gateway:
@@ -37,9 +37,3 @@ knife4j:
     discover:
       enabled: true
       version: openapi3
-
-framework:
-  gateway:
-    allow-list:
-      - path: /omega-*-service/v3/api-docs
-      - path: /omega-admin-service/**
