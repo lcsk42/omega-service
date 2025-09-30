@@ -25,10 +25,10 @@ spring:
 
 framework:
   gateway:
-    token-secret: 12121
+    token-secret: omega-authorization-jwt-secret-custom
     allow-list:
-      - path: /
-        method: GET
+      - method: POST
+        path: /omega-authorization-service/authorization/login
 
 knife4j:
   gateway:

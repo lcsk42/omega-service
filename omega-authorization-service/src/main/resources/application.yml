@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: omega-authorization-service
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://local.lcsk42.com:3306/lcsk42_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: root-password
+  data:
+    redis:
+      host: local.lcsk42.com
+      port: 6379
+      password: redis-password
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos-password
+
+framework:
+  log:
+    access-log:
+      enabled: true
+    includes: all
+  database:
+    mybatis-plus:
+      mapper-package: com.lcsk42.biz.authorization.mapper
+  api-doc:
+    name: Authorization
+    description: 权限相关
+    version: 1.0.0
+    contact:
+      name: lcsk42
+      email: lcsk42@gmail.com
+      url: https://lcsk42.com
+    license:
+      name: MIT

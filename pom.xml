@@ -13,6 +13,7 @@
     <modules>
         <module>omega-gateway-service</module>
         <module>omega-admin-service</module>
+        <module>omega-authorization-service</module>
     </modules>
 
     <properties>
