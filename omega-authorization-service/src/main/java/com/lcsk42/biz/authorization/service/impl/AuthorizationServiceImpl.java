@@ -12,13 +12,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthorizationServiceImpl implements AuthorizationService {
 
-    private final String secret = "omega-authorization-jwt-secret-custom";
+    private final String secret = "omega-authorization-jwt-secret-random";
 
 
     @Override
     public String createToken(UserLoginDTO userLoginDTO) {
         return JwtUtil.generateToken(
-                Map.of("username", userLoginDTO), secret
-        );
+                Map.of("username", userLoginDTO), secret);
     }
 }

@@ -57,5 +57,11 @@
             <groupId>com.lcsk42</groupId>
             <artifactId>omega-idempotent-spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- 限流模块 -->
+        <dependency>
+            <groupId>com.lcsk42</groupId>
+            <artifactId>omega-rate-limiter-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>

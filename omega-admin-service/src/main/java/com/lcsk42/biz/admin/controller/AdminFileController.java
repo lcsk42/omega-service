@@ -38,33 +38,26 @@ public class AdminFileController {
     @PostMapping("/upload")
     @Operation(summary = "上传文件", description = "管理员上传文件的端点")
     public AdminFileVO uploadFile(@RequestParam("file")
-                                  @Parameter(description = "要上传的文件", required = true)
-                                  MultipartFile file,
-                                  @RequestParam(name = "bizSource", required = false)
-                                  @Parameter(description = "文件的业务来源（例如：DEFAULT, USER_UPLOAD）",
-                                          example = "default")
-                                  BizSourceEnum bizSource,
-                                  @RequestParam(name = "publicRead", required = false)
-                                  @Parameter(description = "文件是否公开可读",
-                                          example = "false")
-                                  Boolean publicRead,
-                                  @RequestParam(name = "batchId", required = false)
-                                  @Parameter(description = "用于分组文件的批次ID（如未提供则自动生成）")
-                                  String batchId,
-                                  @RequestParam(name = "id", required = false)
-                                  @Parameter(description = "文件的自定义ID（如未提供则自动生成）")
-                                  Long id,
-                                  @RequestParam(name = "name", required = false)
-                                  @Parameter(description = "文件的自定义名称（如未提供则使用原始文件名）")
-                                  String name) {
+    @Parameter(description = "要上传的文件", required = true) MultipartFile file,
+            @RequestParam(name = "bizSource", required = false)
+            @Parameter(description = "文件的业务来源（例如：DEFAULT, USER_UPLOAD）",
+                    example = "default") BizSourceEnum bizSource,
+            @RequestParam(name = "publicRead", required = false)
+            @Parameter(description = "文件是否公开可读",
+                    example = "false") Boolean publicRead,
+            @RequestParam(name = "batchId", required = false)
+            @Parameter(description = "用于分组文件的批次ID（如未提供则自动生成）") String batchId,
+            @RequestParam(name = "id", required = false)
+            @Parameter(description = "文件的自定义ID（如未提供则自动生成）") Long id,
+            @RequestParam(name = "name", required = false)
+            @Parameter(description = "文件的自定义名称（如未提供则使用原始文件名）") String name) {
         return adminFileService.upload(
                 file,
                 ObjectUtils.defaultIfNull(bizSource, BizSourceEnum.DEFAULT),
                 ObjectUtils.defaultIfNull(publicRead, Boolean.FALSE),
                 StringUtils.defaultIfBlank(batchId, IdUtil.generateCompactUuid()),
                 ObjectUtils.defaultIfNull(id, IdUtil.getSnowflakeNextId()),
-                StringUtils.defaultIfBlank(name, file.getOriginalFilename())
-        );
+                StringUtils.defaultIfBlank(name, file.getOriginalFilename()));
     }
 
     @GetMapping("/download")
@@ -85,29 +78,22 @@ public class AdminFileController {
     public URL generatePreSignedUploadUrl(
             @RequestParam(name = "bizSource", required = false)
             @Parameter(description = "文件的业务来源（例如：DEFAULT, USER_UPLOAD）",
-                    example = "default")
-            BizSourceEnum bizSource,
+                    example = "default") BizSourceEnum bizSource,
             @RequestParam(name = "publicRead", required = false)
             @Parameter(description = "文件是否公开可读",
-                    example = "false")
-            Boolean publicRead,
+                    example = "false") Boolean publicRead,
             @RequestParam(name = "batchId", required = false)
-            @Parameter(description = "用于分组文件的批次ID（如未提供则自动生成）")
-            String batchId,
+            @Parameter(description = "用于分组文件的批次ID（如未提供则自动生成）") String batchId,
             @RequestParam(name = "id", required = false)
-            @Parameter(description = "文件的自定义ID（如未提供则自动生成）")
-            Long id,
+            @Parameter(description = "文件的自定义ID（如未提供则自动生成）") Long id,
             @RequestParam(name = "name", required = false)
-            @Parameter(description = "文件的自定义名称（如未提供则使用默认文件名）")
-            String name
-    ) {
+            @Parameter(description = "文件的自定义名称（如未提供则使用默认文件名）") String name) {
         return adminFileService.generatePreSignedUploadUrl(
                 ObjectUtils.defaultIfNull(bizSource, BizSourceEnum.DEFAULT),
                 ObjectUtils.defaultIfNull(publicRead, Boolean.FALSE),
                 StringUtils.defaultIfBlank(batchId, IdUtil.generateCompactUuid()),
                 ObjectUtils.defaultIfNull(id, IdUtil.getSnowflakeNextId()),
-                StringUtils.defaultIfBlank(name, "unnamed_file.unknown")
-        );
+                StringUtils.defaultIfBlank(name, "unnamed_file.unknown"));
     }
 
     @Log

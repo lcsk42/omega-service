@@ -36,7 +36,8 @@ public class AdminInfoController {
     private final AdminInfoService adminInfoService;
 
     @GetMapping
-    @Operation(summary = "Get Admin Info by ID", description = "Fetches admin information based on the provided ID")
+    @Operation(summary = "Get Admin Info by ID",
+            description = "Fetches admin information based on the provided ID")
     public AdminInfoVO get(@RequestParam("id") Long id) {
         return Optional.ofNullable(adminInfoService.getById(id))
                 .map(AdminInfoConverter.INSTANCE::toV)
@@ -44,14 +45,17 @@ public class AdminInfoController {
     }
 
     @PostMapping("/page")
-    @Operation(summary = "Get Admin Info Page", description = "Fetches a paginated list of admin information based on the provided criteria")
-    public BasePageResponse<AdminInfoVO> page(@ModelAttribute @ParameterObject AdminInfoPageDTO adminInfoPageDTO) {
+    @Operation(summary = "Get Admin Info Page",
+            description = "Fetches a paginated list of admin information based on the provided criteria")
+    public BasePageResponse<AdminInfoVO> page(
+            @ModelAttribute @ParameterObject AdminInfoPageDTO adminInfoPageDTO) {
         return adminInfoService.page(adminInfoPageDTO);
     }
 
     @Log
     @PostMapping
-    @Operation(summary = "Save Admin Info", description = "Saves new admin information or updates existing information")
+    @Operation(summary = "Save Admin Info",
+            description = "Saves new admin information or updates existing information")
     public AdminInfoVO save(@RequestBody AdminInfoDTO adminInfoDTO) {
         AdminInfoPO adminInfoPO = AdminInfoConverter.INSTANCE.toP(adminInfoDTO);
         adminInfoService.save(adminInfoPO);
@@ -60,7 +64,8 @@ public class AdminInfoController {
 
     @Log
     @PutMapping
-    @Operation(summary = "Update Admin Info", description = "Updates existing admin information based on the provided DTO")
+    @Operation(summary = "Update Admin Info",
+            description = "Updates existing admin information based on the provided DTO")
     public AdminInfoVO update(@RequestBody AdminInfoDTO adminInfoDTO) {
         AdminInfoPO adminInfoPO = AdminInfoConverter.INSTANCE.toP(adminInfoDTO);
         adminInfoService.updateById(adminInfoPO);
@@ -69,7 +74,8 @@ public class AdminInfoController {
 
     @Log
     @DeleteMapping
-    @Operation(summary = "Delete Admin Info by ID", description = "Deletes admin information based on the provided ID")
+    @Operation(summary = "Delete Admin Info by ID",
+            description = "Deletes admin information based on the provided ID")
     public boolean deleteById(@RequestParam("id") Long id) {
         return adminInfoService.removeById(id);
     }

@@ -20,7 +20,13 @@ spring:
         username: nacos
         password: nacos-password
 
+
 framework:
+  cache:
+    redis:
+      bloom-filter:
+        default:
+          enable: true
   log:
     access-log:
       enabled: true

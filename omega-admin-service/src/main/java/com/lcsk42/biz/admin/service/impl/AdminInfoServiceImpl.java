@@ -38,7 +38,8 @@ public class AdminInfoServiceImpl extends ServiceImpl<AdminInfoMapper, AdminInfo
     @Override
     public BasePageResponse<AdminInfoVO> page(AdminInfoPageDTO adminInfoPageDTO) {
         IPage<AdminInfoPO> page = lambdaQuery()
-                .like(StringUtils.isNoneBlank(adminInfoPageDTO.getUsername()), AdminInfoPO::getUsername, adminInfoPageDTO.getUsername())
+                .like(StringUtils.isNoneBlank(adminInfoPageDTO.getUsername()),
+                        AdminInfoPO::getUsername, adminInfoPageDTO.getUsername())
                 .page(new Page<>(adminInfoPageDTO.getCurrent(), adminInfoPageDTO.getSize()));
         return PageResponse.of(page, AdminInfoConverter.INSTANCE::toV);
     }

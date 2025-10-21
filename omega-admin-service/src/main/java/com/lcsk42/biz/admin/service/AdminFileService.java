@@ -15,11 +15,11 @@ import java.util.List;
 public interface AdminFileService extends IService<AdminFilePO> {
 
     AdminFileVO upload(MultipartFile file,
-                       BizSourceEnum bizSource,
-                       Boolean publicRead,
-                       String batchId,
-                       Long id,
-                       String fileName);
+            BizSourceEnum bizSource,
+            Boolean publicRead,
+            String batchId,
+            Long id,
+            String fileName);
 
     AdminFileVO uploadTempFile(MultipartFile file, String batchId);
 
@@ -35,7 +35,8 @@ public interface AdminFileService extends IService<AdminFilePO> {
 
     URL generatePreSignedDownloadUrl(Long id);
 
-    URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead, String batchId, Long id, String fileName);
+    URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead, String batchId,
+            Long id, String fileName);
 
     void updateFileMetadata(AdminFileMetadataDTO fileMetadataDTO);
 }

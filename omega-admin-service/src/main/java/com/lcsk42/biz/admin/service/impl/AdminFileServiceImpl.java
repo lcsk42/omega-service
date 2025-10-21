@@ -41,19 +41,18 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
 
     @Override
     public AdminFileVO upload(MultipartFile file,
-                              BizSourceEnum bizSource,
-                              Boolean publicRead,
-                              String batchId,
-                              Long id,
-                              String fileName) {
+            BizSourceEnum bizSource,
+            Boolean publicRead,
+            String batchId,
+            Long id,
+            String fileName) {
         String path;
         String bucketName = getBucketName(publicRead);
         try {
             path = fileService.uploadFile(
                     file.getInputStream(),
                     fileName,
-                    bucketName
-            );
+                    bucketName);
         } catch (IOException e) {
             throw new ServiceException();
         }
@@ -136,7 +135,8 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
         lambdaQuery()
                 .eq(AdminFilePO::getBatchId, batchId)
                 .list()
-                .forEach(adminFilePO -> fileService.deleteFile(adminFilePO.getPath(), adminFilePO.getBucketName()));
+                .forEach(adminFilePO -> fileService.deleteFile(adminFilePO.getPath(),
+                        adminFilePO.getBucketName()));
 
         lambdaUpdate()
                 .eq(AdminFilePO::getBatchId, batchId)
@@ -147,8 +147,10 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
     public void download(Long id, HttpServletResponse response) {
         AdminFileVO adminFileVO = getById(id);
 
-        try (InputStream inputStream = fileService.downloadFile(adminFileVO.getPath(), adminFileVO.getBucketName())) {
-            ServletUtil.write(response, inputStream, adminFileVO.getName(), MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        try (InputStream inputStream =
+                fileService.downloadFile(adminFileVO.getPath(), adminFileVO.getBucketName())) {
+            ServletUtil.write(response, inputStream, adminFileVO.getName(),
+                    MediaType.APPLICATION_OCTET_STREAM_VALUE);
         } catch (IOException e) {
             throw FileErrorCode.IO_RUNTIME_EXCEPTION.toServiceException();
         }
@@ -165,10 +167,10 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
 
     @Override
     public URL generatePreSignedUploadUrl(BizSourceEnum bizSource,
-                                          Boolean publicRead,
-                                          String batchId,
-                                          Long id,
-                                          String fileName) {
+            Boolean publicRead,
+            String batchId,
+            Long id,
+            String fileName) {
 
         String path = fileService.buildKey(fileName, false);
         String bucketName = getBucketName(publicRead);
@@ -196,18 +198,15 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
                 .set(
                         StringUtils.isNoneBlank(fileMetadataDTO.getName()),
                         AdminFilePO::getName,
-                        fileMetadataDTO.getName()
-                )
+                        fileMetadataDTO.getName())
                 .set(
                         Objects.nonNull(fileMetadataDTO.getSize()),
                         AdminFilePO::getSize,
-                        fileMetadataDTO.getSize()
-                )
+                        fileMetadataDTO.getSize())
                 .set(
                         StringUtils.isNoneBlank(fileMetadataDTO.getName()),
                         AdminFilePO::getFileType,
-                        FilenameUtils.getExtension(fileMetadataDTO.getName())
-                )
+                        FilenameUtils.getExtension(fileMetadataDTO.getName()))
                 .eq(AdminFilePO::getId, fileMetadataDTO.getId())
                 .update();
     }
