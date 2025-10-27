@@ -1,8 +1,8 @@
-package com.lcsk42.biz.admin.common.enums;
+package com.lcsk42.biz.file.common.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.lcsk42.frameworks.starter.convention.enums.BaseEnum;
+import com.lcsk42.frameworks.starter.web.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

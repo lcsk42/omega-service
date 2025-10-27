@@ -1,6 +1,6 @@
 package com.lcsk42.biz.admin.controller;
 
-import com.lcsk42.frameworks.starter.common.util.ThreadUtil;
+import com.lcsk42.frameworks.starter.common.util.concurrent.ThreadUtil;
 import com.lcsk42.frameworks.starter.core.constant.HttpHeaderConstant;
 import com.lcsk42.frameworks.starter.idempotent.annotation.Idempotent;
 import com.lcsk42.frameworks.starter.idempotent.enums.IdempotentTypeEnum;

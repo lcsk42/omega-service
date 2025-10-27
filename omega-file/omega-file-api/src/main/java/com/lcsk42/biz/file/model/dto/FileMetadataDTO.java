@@ -1,4 +1,4 @@
-package com.lcsk42.biz.admin.model.dto;
+package com.lcsk42.biz.file.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AdminFileMetadataDTO {
+public class FileMetadataDTO {
     @Schema(description = "主键ID")
     private Long id;
 

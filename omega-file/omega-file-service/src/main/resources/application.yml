@@ -1,6 +1,6 @@
 spring:
   application:
-    name: omega-admin-service
+    name: omega-file-service
   profiles:
     active: dev
   datasource:
@@ -8,15 +8,7 @@ spring:
     url: jdbc:mysql://local.lcsk42.com:3306/lcsk42_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: root-password
-  data:
-    redis:
-      host: local.lcsk42.com
-      port: 6379
-      password: redis-password
   cloud:
-    loadbalancer:
-      nacos:
-        enabled: true
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
@@ -25,11 +17,6 @@ spring:
 
 
 framework:
-  cache:
-    redis:
-      bloom-filter:
-        default:
-          enable: true
   log:
     access-log:
       enabled: true
@@ -46,10 +33,10 @@ framework:
         public-bucket-name: lcsk42-public
   database:
     mybatis-plus:
-      mapper-package: com.lcsk42.biz.admin.mapper
+      mapper-package: com.lcsk42.biz.file.mapper
   api-doc:
-    name: Admin
-    description: 管理菜单
+    name: File
+    description: 文件菜单
     version: 1.0.0
     contact:
       name: lcsk42

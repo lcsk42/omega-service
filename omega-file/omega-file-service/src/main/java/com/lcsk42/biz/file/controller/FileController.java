@@ -1,9 +1,10 @@
-package com.lcsk42.biz.admin.controller;
+package com.lcsk42.biz.file.controller;
 
-import com.lcsk42.biz.file.client.FileClient;
+import com.lcsk42.biz.file.api.FileApi;
 import com.lcsk42.biz.file.common.enums.BizSourceEnum;
 import com.lcsk42.biz.file.model.dto.FileMetadataDTO;
 import com.lcsk42.biz.file.model.vo.FileVO;
+import com.lcsk42.biz.file.service.FileService;
 import com.lcsk42.frameworks.starter.common.util.IdUtil;
 import com.lcsk42.frameworks.starter.log.core.annotation.Log;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,9 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,15 +25,15 @@ import java.net.URL;
 
 @Slf4j
 @RestController
-@RequestMapping("/admin-file")
+@RequestMapping("/file")
 @RequiredArgsConstructor
-@Tag(description = "管理员文件管理", name = "AdminFileController")
-public class AdminFileController {
+@Tag(description = "文件管理", name = "FileController")
+public class FileController implements FileApi {
 
-    private final FileClient fileClient;
+    private final FileService fileService;
 
+    @Override
     @Log
-    @PostMapping("/upload")
     @Operation(summary = "上传文件", description = "管理员上传文件的端点")
     public FileVO upload(@RequestParam("file")
     @Parameter(description = "要上传的文件", required = true) MultipartFile file,
@@ -51,7 +49,7 @@ public class AdminFileController {
             @Parameter(description = "文件的自定义ID（如未提供则自动生成）") Long id,
             @RequestParam(name = "name", required = false)
             @Parameter(description = "文件的自定义名称（如未提供则使用原始文件名）") String name) {
-        return fileClient.upload(
+        return fileService.upload(
                 file,
                 ObjectUtils.defaultIfNull(bizSource, BizSourceEnum.DEFAULT),
                 ObjectUtils.defaultIfNull(publicRead, Boolean.FALSE),
@@ -60,20 +58,20 @@ public class AdminFileController {
                 StringUtils.defaultIfBlank(name, file.getOriginalFilename()));
     }
 
-    @GetMapping("/download")
+    @Override
     @Operation(summary = "下载文件", description = "管理员下载文件的端点")
     public void download(@RequestParam("id") Long id, HttpServletResponse response) {
-        fileClient.download(id, response);
+        fileService.download(id, response);
     }
 
-    @GetMapping("/pre-signed-download-url")
+    @Override
     @Operation(summary = "生成预签名下载URL", description = "生成用于下载文件的预签名URL")
     public URL generatePreSignedDownloadUrl(@RequestParam("id") Long id) {
-        return fileClient.generatePreSignedDownloadUrl(id);
+        return fileService.generatePreSignedDownloadUrl(id);
     }
 
+    @Override
     @Log
-    @PostMapping("/pre-signed-upload-url")
     @Operation(summary = "生成预签名上传URL", description = "生成用于上传文件的预签名URL")
     public URL generatePreSignedUploadUrl(
             @RequestParam(name = "bizSource", required = false)
@@ -88,7 +86,7 @@ public class AdminFileController {
             @Parameter(description = "文件的自定义ID（如未提供则自动生成）") Long id,
             @RequestParam(name = "name", required = false)
             @Parameter(description = "文件的自定义名称（如未提供则使用默认文件名）") String name) {
-        return fileClient.generatePreSignedUploadUrl(
+        return fileService.generatePreSignedUploadUrl(
                 ObjectUtils.defaultIfNull(bizSource, BizSourceEnum.DEFAULT),
                 ObjectUtils.defaultIfNull(publicRead, Boolean.FALSE),
                 StringUtils.defaultIfBlank(batchId, IdUtil.generateCompactUuid()),
@@ -96,19 +94,20 @@ public class AdminFileController {
                 StringUtils.defaultIfBlank(name, "unnamed_file.unknown"));
     }
 
+    @Override
     @Log
-    @PutMapping("/file-metadata")
     @Operation(summary = "更新文件元数据", description = "更新现有文件的元数据")
     public void updateFileMetadata(@RequestBody FileMetadataDTO fileMetadataDTO) {
-        fileClient.updateFileMetadata(fileMetadataDTO);
+        fileService.updateFileMetadata(fileMetadataDTO);
     }
 
+    @Override
     @Log
-    @PutMapping("/mock-upload")
-    @Operation(summary = "模拟上传文件", description = "模拟上传文件以进行测试")
+    @Operation(summary = "模拟上传文件", description = "模拟文件上传以进行测试")
     public FileVO mockUpload() {
-        FileVO fileVO = fileClient.mockUpload();
+        FileVO fileVO = new FileVO();
+        fileVO.setId(1L);
+        fileVO.setFileType("mock");
         return fileVO;
     }
 }
-

@@ -1,24 +1,20 @@
-package com.lcsk42.biz.admin.model.po;
+package com.lcsk42.biz.file.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.lcsk42.biz.admin.common.enums.BizSourceEnum;
-import com.lcsk42.frameworks.starter.database.mybatisplus.model.po.BasePO;
 import com.lcsk42.frameworks.starter.file.core.enums.FileUploadType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-@TableName("admin_file")
-public class AdminFilePO extends BasePO {
+@Schema(description = "文件对象")
+public class FileVO {
+
+    @Schema(description = "主键ID")
+    private Long id;
+
     @Schema(description = "文件名称")
     private String name;
 
@@ -38,10 +34,9 @@ public class AdminFilePO extends BasePO {
     private FileUploadType fileUploadType;
 
     @Schema(description = "业务来源")
-    private BizSourceEnum bizSource;
+    private String bizSource;
 
     @Schema(description = "是否公开读")
-    @TableField(value = "is_public_read")
     private Boolean publicRead;
 
     @Schema(description = "批次 Id")

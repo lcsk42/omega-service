@@ -1,10 +1,9 @@
-package com.lcsk42.biz.admin.service;
+package com.lcsk42.biz.file.service;
 
-
-import com.lcsk42.biz.admin.common.enums.BizSourceEnum;
-import com.lcsk42.biz.admin.model.dto.AdminFileMetadataDTO;
-import com.lcsk42.biz.admin.model.po.AdminFilePO;
-import com.lcsk42.biz.admin.model.vo.AdminFileVO;
+import com.lcsk42.biz.file.common.enums.BizSourceEnum;
+import com.lcsk42.biz.file.model.dto.FileMetadataDTO;
+import com.lcsk42.biz.file.model.po.FilePO;
+import com.lcsk42.biz.file.model.vo.FileVO;
 import com.lcsk42.frameworks.starter.database.mybatisplus.service.IService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,20 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 import java.net.URL;
 import java.util.List;
 
-public interface AdminFileService extends IService<AdminFilePO> {
+public interface FileService extends IService<FilePO> {
 
-    AdminFileVO upload(MultipartFile file,
+    FileVO upload(MultipartFile file,
             BizSourceEnum bizSource,
             Boolean publicRead,
             String batchId,
             Long id,
             String fileName);
 
-    AdminFileVO uploadTempFile(MultipartFile file, String batchId);
+    FileVO uploadTempFile(MultipartFile file, String batchId);
 
-    List<AdminFileVO> listByBatchId(String batchId);
+    List<FileVO> listByBatchId(String batchId);
 
-    AdminFileVO getById(Long id);
+    FileVO getById(Long id);
 
     void deleteById(Long id);
 
@@ -38,5 +37,5 @@ public interface AdminFileService extends IService<AdminFilePO> {
     URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead, String batchId,
             Long id, String fileName);
 
-    void updateFileMetadata(AdminFileMetadataDTO fileMetadataDTO);
+    void updateFileMetadata(FileMetadataDTO fileMetadataDTO);
 }

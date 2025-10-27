@@ -29,7 +29,8 @@ framework:
     allow-list:
       - method: POST
         path: /omega-authorization-service/authorization/login
-      - path: /omega-admin-service/*
+      - path: /omega-admin-service/**
+      - path: /omega-file-service/**
 
 knife4j:
   gateway:
@@ -38,3 +39,8 @@ knife4j:
     discover:
       enabled: true
       version: openapi3
+
+logging:
+  level:
+    org.springframework.cloud.loadbalancer: DEBUG
+    org.springframework.cache: DEBUG

@@ -1,19 +1,17 @@
-package com.lcsk42.biz.admin.service.impl;
+package com.lcsk42.biz.file.service.impl;
 
-
-import com.lcsk42.biz.admin.common.enums.BizSourceEnum;
-import com.lcsk42.biz.admin.mapper.AdminFileMapper;
-import com.lcsk42.biz.admin.model.convert.AdminFileConverter;
-import com.lcsk42.biz.admin.model.dto.AdminFileMetadataDTO;
-import com.lcsk42.biz.admin.model.po.AdminFilePO;
-import com.lcsk42.biz.admin.model.vo.AdminFileVO;
-import com.lcsk42.biz.admin.service.AdminFileService;
+import com.lcsk42.biz.file.common.enums.BizSourceEnum;
+import com.lcsk42.biz.file.mapper.FileMapper;
+import com.lcsk42.biz.file.model.convert.FileConverter;
+import com.lcsk42.biz.file.model.dto.FileMetadataDTO;
+import com.lcsk42.biz.file.model.po.FilePO;
+import com.lcsk42.biz.file.model.vo.FileVO;
+import com.lcsk42.biz.file.service.FileService;
 import com.lcsk42.frameworks.starter.common.util.IdUtil;
 import com.lcsk42.frameworks.starter.convention.errorcode.FileErrorCode;
 import com.lcsk42.frameworks.starter.convention.exception.ServiceException;
 import com.lcsk42.frameworks.starter.database.mybatisplus.service.impl.ServiceImpl;
 import com.lcsk42.frameworks.starter.file.core.config.FileUploadProperties;
-import com.lcsk42.frameworks.starter.file.core.service.FileService;
 import com.lcsk42.frameworks.starter.web.util.ServletUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -32,15 +30,15 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFilePO>
-        implements AdminFileService {
+public class FileServiceImpl extends ServiceImpl<FileMapper, FilePO>
+        implements FileService {
 
-    private final FileService fileService;
+    private final com.lcsk42.frameworks.starter.file.core.service.FileService fileService;
 
     private final FileUploadProperties fileUploadProperties;
 
     @Override
-    public AdminFileVO upload(MultipartFile file,
+    public FileVO upload(MultipartFile file,
             BizSourceEnum bizSource,
             Boolean publicRead,
             String batchId,
@@ -57,7 +55,7 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
             throw new ServiceException();
         }
 
-        AdminFilePO adminFilePO = AdminFilePO.builder()
+        FilePO filePO = FilePO.builder()
                 .id(id)
                 .name(fileName)
                 .size(file.getSize())
@@ -70,12 +68,12 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
                 .batchId(StringUtils.isBlank(batchId) ? IdUtil.generateStandardUuid() : batchId)
                 .build();
 
-        save(adminFilePO);
-        return AdminFileConverter.INSTANCE.toT(adminFilePO);
+        save(filePO);
+        return FileConverter.INSTANCE.toT(filePO);
     }
 
     @Override
-    public AdminFileVO uploadTempFile(MultipartFile file, String batchId) {
+    public FileVO uploadTempFile(MultipartFile file, String batchId) {
         String fileName = file.getName();
         String path;
         try {
@@ -83,7 +81,7 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
         } catch (IOException e) {
             throw new ServiceException();
         }
-        AdminFilePO adminFilePO = AdminFilePO.builder()
+        FilePO filePO = FilePO.builder()
                 .id(IdUtil.getSnowflakeNextId())
                 .name(fileName)
                 .size(file.getSize())
@@ -96,36 +94,36 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
                 .batchId(StringUtils.isBlank(batchId) ? IdUtil.generateStandardUuid() : batchId)
                 .build();
 
-        save(adminFilePO);
-        return AdminFileConverter.INSTANCE.toT(adminFilePO);
+        save(filePO);
+        return FileConverter.INSTANCE.toT(filePO);
     }
 
     @Override
-    public List<AdminFileVO> listByBatchId(String batchId) {
+    public List<FileVO> listByBatchId(String batchId) {
         return lambdaQuery()
-                .eq(AdminFilePO::getBatchId, batchId)
-                .orderByDesc(AdminFilePO::getCreateTime)
+                .eq(FilePO::getBatchId, batchId)
+                .orderByDesc(FilePO::getCreateTime)
                 .list()
                 .stream()
-                .map(AdminFileConverter.INSTANCE::toT)
+                .map(FileConverter.INSTANCE::toT)
                 .toList();
     }
 
     @Override
-    public AdminFileVO getById(Long id) {
+    public FileVO getById(Long id) {
         return lambdaQuery()
-                .eq(AdminFilePO::getId, id)
+                .eq(FilePO::getId, id)
                 .oneOpt()
-                .map(AdminFileConverter.INSTANCE::toT)
-                .orElseGet(AdminFileVO::new);
+                .map(FileConverter.INSTANCE::toT)
+                .orElseGet(FileVO::new);
     }
 
     @Override
     public void deleteById(Long id) {
-        AdminFileVO adminFileVO = getById(id);
+        FileVO adminFileVO = getById(id);
         fileService.deleteFile(adminFileVO.getPath(), adminFileVO.getBucketName());
         lambdaUpdate()
-                .eq(AdminFilePO::getId, id)
+                .eq(FilePO::getId, id)
                 .remove();
     }
 
@@ -133,19 +131,19 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
     public void deleteByBatchId(String batchId) {
 
         lambdaQuery()
-                .eq(AdminFilePO::getBatchId, batchId)
+                .eq(FilePO::getBatchId, batchId)
                 .list()
-                .forEach(adminFilePO -> fileService.deleteFile(adminFilePO.getPath(),
-                        adminFilePO.getBucketName()));
+                .forEach(filePO -> fileService.deleteFile(filePO.getPath(),
+                        filePO.getBucketName()));
 
         lambdaUpdate()
-                .eq(AdminFilePO::getBatchId, batchId)
+                .eq(FilePO::getBatchId, batchId)
                 .remove();
     }
 
     @Override
     public void download(Long id, HttpServletResponse response) {
-        AdminFileVO adminFileVO = getById(id);
+        FileVO adminFileVO = getById(id);
 
         try (InputStream inputStream =
                 fileService.downloadFile(adminFileVO.getPath(), adminFileVO.getBucketName())) {
@@ -159,7 +157,7 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
 
     @Override
     public URL generatePreSignedDownloadUrl(Long id) {
-        AdminFileVO adminFileVO = getById(id);
+        FileVO adminFileVO = getById(id);
         return fileService.generatePreSignedDownloadUrl(adminFileVO.getPath(),
                 adminFileVO.getBucketName(),
                 Duration.ofDays(1));
@@ -175,7 +173,7 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
         String path = fileService.buildKey(fileName, false);
         String bucketName = getBucketName(publicRead);
 
-        AdminFilePO adminFilePO = AdminFilePO.builder()
+        FilePO filePO = FilePO.builder()
                 .id(id)
                 .name(fileName)
                 .size(0L)
@@ -187,27 +185,27 @@ public class AdminFileServiceImpl extends ServiceImpl<AdminFileMapper, AdminFile
                 .publicRead(publicRead)
                 .batchId(StringUtils.isBlank(batchId) ? IdUtil.generateStandardUuid() : batchId)
                 .build();
-        save(adminFilePO);
+        save(filePO);
 
         return fileService.generatePreSignedUploadUrl(path, bucketName, Duration.ofMinutes(15));
     }
 
     @Override
-    public void updateFileMetadata(AdminFileMetadataDTO fileMetadataDTO) {
+    public void updateFileMetadata(FileMetadataDTO fileMetadataDTO) {
         lambdaUpdate()
                 .set(
                         StringUtils.isNoneBlank(fileMetadataDTO.getName()),
-                        AdminFilePO::getName,
+                        FilePO::getName,
                         fileMetadataDTO.getName())
                 .set(
                         Objects.nonNull(fileMetadataDTO.getSize()),
-                        AdminFilePO::getSize,
+                        FilePO::getSize,
                         fileMetadataDTO.getSize())
                 .set(
                         StringUtils.isNoneBlank(fileMetadataDTO.getName()),
-                        AdminFilePO::getFileType,
+                        FilePO::getFileType,
                         FilenameUtils.getExtension(fileMetadataDTO.getName()))
-                .eq(AdminFilePO::getId, fileMetadataDTO.getId())
+                .eq(FilePO::getId, fileMetadataDTO.getId())
                 .update();
     }
 
