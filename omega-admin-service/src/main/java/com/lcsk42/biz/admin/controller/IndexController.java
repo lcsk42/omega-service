@@ -47,6 +47,4 @@ public class IndexController {
     public String rateLimiter(@PathVariable Long id) {
         return "Rate Limiter";
     }
-
-
 }

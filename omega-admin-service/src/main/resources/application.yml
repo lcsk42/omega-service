@@ -57,3 +57,9 @@ framework:
       url: https://lcsk42.com
     license:
       name: MIT
+  message:
+    mail:
+      host: smtp.163.com
+      port: 465
+      username: example@163.com
+      password: example-password
