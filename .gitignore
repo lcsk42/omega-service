@@ -167,3 +167,4 @@ Temporary Items
 target
 
 *.flattened-pom.xml
+*-dev.yml
