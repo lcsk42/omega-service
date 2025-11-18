@@ -63,3 +63,9 @@ framework:
       port: 465
       username: example@163.com
       password: example-password
+  security:
+    xss:
+      enabled: true
+      mode: escape
+      exclude-patterns:
+        - /xss/post
