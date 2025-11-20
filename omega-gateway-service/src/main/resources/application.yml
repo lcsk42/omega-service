@@ -1,27 +1,12 @@
 spring:
   application:
     name: omega-gateway-service
-  profiles:
-    active: dev
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
         username: nacos
         password: nacos-password
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: root-to-doc
-          uri: http://localhost:${server.port}
-          predicates:
-            - Path=/
-          filters:
-            - RedirectTo=302, /doc.html
-          order: -1
 
 framework:
   gateway:
@@ -39,8 +24,3 @@ knife4j:
     discover:
       enabled: true
       version: openapi3
-
-logging:
-  level:
-    org.springframework.cloud.loadbalancer: DEBUG
-    org.springframework.cache: DEBUG
