@@ -12,6 +12,7 @@
 
     <modules>
         <module>omega-gateway-service</module>
+        <module>omega-admin</module>
     </modules>
 
     <properties>
@@ -28,6 +29,7 @@
         <!--        <project.build.outputTimestamp>2025-01-01T00:00:00Z</project.build.outputTimestamp>-->
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <omega.version>1.0.0</omega.version>
     </properties>
 
     <dependencies>
@@ -48,7 +50,7 @@
             <dependency>
                 <groupId>com.lcsk42</groupId>
                 <artifactId>omega-bom-spring-boot-starter</artifactId>
-                <version>${revision}</version>
+                <version>${omega.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -56,7 +58,7 @@
             <dependency>
                 <groupId>com.lcsk42</groupId>
                 <artifactId>omega-dependencies</artifactId>
-                <version>${project.version}</version>
+                <version>${omega.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -71,6 +73,12 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.lcsk42</groupId>
+                <artifactId>omega-admin-api</artifactId>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

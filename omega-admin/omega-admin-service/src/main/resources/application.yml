@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: omega-admin-service
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:127.0.0.1}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      password: ${SPRING_DATA_REDIS_PASSWORD}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR:127.0.0.1:8848}
+        username: ${SPRING_CLOUD_NACOS_DISCOVERY_USERNAME:nacos}
+        password: ${SPRING_CLOUD_NACOS_DISCOVERY_PASSWORD:nacos}
+
+framework:
+  log:
+    access-log:
+      enabled: true
+    includes: all
+  database:
+    mybatis-plus:
+      mapper-package: com.lcsk42.biz.admin.mapper
+  api-doc:
+    name: Admin
+    description: 后台管理
+    version: 1.0.0
+    contact:
+      name: lcsk42
+      email: lcsk42@gmail.com
+      url: https://lcsk42.com
+    license:
+      name: MIT
