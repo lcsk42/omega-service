@@ -19,6 +19,7 @@ framework:
     allow-list:
       - method: POST
         path: /omega-authorization-service/login
+      - path: /omega-cs-service/**
 
 
 knife4j:

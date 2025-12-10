@@ -14,6 +14,7 @@
         <module>omega-gateway-service</module>
         <module>omega-admin</module>
         <module>omega-authorization</module>
+        <module>omega-cs</module>
     </modules>
 
     <properties>
@@ -85,6 +86,12 @@
             <dependency>
                 <groupId>com.lcsk42</groupId>
                 <artifactId>omega-authorization-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.lcsk42</groupId>
+                <artifactId>omega-cs-api</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>
