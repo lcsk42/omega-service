@@ -1,27 +1,19 @@
-package com.lcsk42.biz.cs.model;
+package com.lcsk42.biz.cs.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.FieldNameConstants;
-import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@SuperBuilder
 @NoArgsConstructor
-@FieldNameConstants
-@TableName("chat_record")
-@Tag(name = "ChatRecordPO", description = "记录聊天记录")
-public class ChatRecordPO {
-    @TableId
+@Tag(name = "ChatRecordVO", description = "留言")
+public class ChatRecordVO {
+
     @Schema(description = "主键")
     private Long id;
 
@@ -38,7 +30,6 @@ public class ChatRecordPO {
     private String content;
 
     @Schema(description = "是否删除")
-    @TableField(value = "is_deleted")
     private Boolean deleted;
 
     @Schema(description = "创建时间")

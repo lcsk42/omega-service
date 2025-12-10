@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/chat/config")
 @RequiredArgsConstructor
-@Tag(description = "回话设置", name = "回话设置")
+@Tag(description = "会话设置", name = "会话设置")
 public class ChatConfigController {
 
     private final ChatConfigService chatConfigService;

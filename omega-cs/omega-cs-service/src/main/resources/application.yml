@@ -28,6 +28,8 @@ framework:
   database:
     mybatis-plus:
       mapper-package: com.lcsk42.biz.cs.mapper
+      pagination:
+        db-type: mysql
   api-doc:
     name: Customer-Service
     description: 客服管理
@@ -38,3 +40,7 @@ framework:
       url: https://lcsk42.com
     license:
       name: MIT
+  security:
+    xss:
+      enabled: true
+      mode: escape

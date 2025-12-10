@@ -28,6 +28,8 @@ framework:
   database:
     mybatis-plus:
       mapper-package: com.lcsk42.biz.admin.mapper
+      pagination:
+        db-type: mysql
   api-doc:
     name: Admin
     description: 后台管理
