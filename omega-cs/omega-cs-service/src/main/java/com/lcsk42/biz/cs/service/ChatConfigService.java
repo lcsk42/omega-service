@@ -5,4 +5,6 @@ import com.lcsk42.frameworks.starter.database.mybatisplus.service.IService;
 
 public interface ChatConfigService extends IService<ChatConfigPO> {
     ChatConfigPO getOrCreate();
+
+    ChatConfigPO update(ChatConfigPO chatConfigPO);
 }

@@ -34,7 +34,7 @@ public class ChatConfigController {
     @Operation(summary = "会话配置信息(修改)", description = "修改回话配置信息")
     public ChatConfigVO update(@RequestBody ChatConfigDTO chatConfigDTO) {
         ChatConfigPO po = ChatConfigConverter.INSTANCE.toP(chatConfigDTO);
-        chatConfigService.updateById(po);
-        return ChatConfigConverter.INSTANCE.toV(po);
+        ChatConfigPO updatePO = chatConfigService.update(po);
+        return ChatConfigConverter.INSTANCE.toV(updatePO);
     }
 }

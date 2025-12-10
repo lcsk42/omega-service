@@ -9,6 +9,8 @@ import com.lcsk42.frameworks.starter.database.mybatisplus.service.impl.ServiceIm
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+
 @Service
 @RequiredArgsConstructor
 public class ChatConfigServiceImpl
@@ -30,7 +32,14 @@ public class ChatConfigServiceImpl
                     save(chatConfigPO);
                     return chatConfigPO;
                 });
-        cache.put(cacheKey, configPO);
+        cache.put(cacheKey, configPO, Duration.ofDays(1));
         return configPO;
+    }
+
+    @Override
+    public ChatConfigPO update(ChatConfigPO chatConfigPO) {
+        updateById(chatConfigPO);
+        cache.delete(CsRedisKeyConstant.ChatConfig.getCacheKey(chatConfigPO.getId()));
+        return chatConfigPO;
     }
 }
