@@ -14,7 +14,7 @@ public class UserLoginDTO {
      * 用户名
      */
     @Schema(description = "用户名")
-    private String usernameOrMailOrPhone;
+    private String usernameOrEmailOrMobile;
 
     /**
      * 密码

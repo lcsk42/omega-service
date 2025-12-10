@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
         fallback = SystemUserClientImpl.class)
 public interface SystemUserClient {
 
-    @GetMapping("/{usernameOrMailOrPhone}")
+    @GetMapping("/{usernameOrEmailOrMobile}")
     @Operation(summary = "查询用户信息", description = "通过用户名/邮箱/手机号")
-    SystemUserVO getByUsernameOrMailOrPhone(@PathVariable String usernameOrMailOrPhone);
+    SystemUserVO getByUsernameOrEmailOrMobile(@PathVariable String usernameOrEmailOrMobile);
 
     @GetMapping("/id/{id}")
     @Operation(summary = "查询用户信息", description = "通过用户 ID")

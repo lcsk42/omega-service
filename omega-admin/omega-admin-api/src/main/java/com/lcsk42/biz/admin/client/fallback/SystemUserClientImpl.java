@@ -5,7 +5,7 @@ import com.lcsk42.biz.admin.model.vo.SystemUserVO;
 
 public class SystemUserClientImpl implements SystemUserClient {
     @Override
-    public SystemUserVO getByUsernameOrMailOrPhone(String usernameOrMailOrPhone) {
+    public SystemUserVO getByUsernameOrEmailOrMobile(String usernameOrMailOrPhone) {
         return new SystemUserVO();
     }
 

@@ -27,7 +27,7 @@ public class SystemUserVO {
     private String email;
 
     @Schema(description = "手机号")
-    private String phone;
+    private String mobile;
 
     @Schema(description = "用户性别 M=男, F=女, O=其他, U=未知")
     private GenderEnum gender;

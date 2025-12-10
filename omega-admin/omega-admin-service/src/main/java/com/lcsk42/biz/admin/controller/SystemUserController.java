@@ -21,10 +21,10 @@ public class SystemUserController {
 
     private final SystemUserService systemUserService;
 
-    @GetMapping("/{usernameOrMailOrPhone}")
+    @GetMapping("/{usernameOrEmailOrMobile}")
     @Operation(summary = "查询用户信息", description = "通过用户名/邮箱/手机号")
-    public SystemUserVO getByUsernameOrMailOrPhone(@PathVariable String usernameOrMailOrPhone) {
-        return systemUserService.getByUsernameOrMailOrPhone(usernameOrMailOrPhone)
+    public SystemUserVO getByUsernameOrEmailOrMobile(@PathVariable String usernameOrEmailOrMobile) {
+        return systemUserService.getByUsernameOrEmailOrMobile(usernameOrEmailOrMobile)
                 .map(SystemUserConverter.INSTANCE::toT)
                 .orElseGet(SystemUserVO::new);
     }

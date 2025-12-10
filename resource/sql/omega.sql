@@ -94,7 +94,7 @@ create table system_user
     department_id             bigint       default null comment '部门ID',
     username                  varchar(30)  default '' comment '用户昵称',
     email                     varchar(50)  default '' comment '用户邮箱',
-    phone                     varchar(11)  default '' comment '手机号码',
+    mobile                     varchar(11)  default '' comment '手机号码',
     gender                    char(1)      default 'U' comment '用户性别 M=男, F=女, O=其他, U=未知',
     avatar                    varchar(100) default '' comment '头像路径',
     password                  varchar(50)                            not null comment '密码',
@@ -108,7 +108,7 @@ create table system_user
     primary key (id)
 ) engine = innodb
   auto_increment = 100 comment = '用户信息表';
-insert into system_user(id, department_id, username, email, phone, gender, avatar, password, salt)
+insert into system_user(id, department_id, username, email, mobile, gender, avatar, password, salt)
 values (1, 1, 'admin', 'admin@omega.com', '18800000001', 'U', '', 'T5TQTJOzhuKhXM9GZd1QrCnlnc5OUPtOrNR+uxaKfK8=',
         'uRD99xLNHvbiV8k5mj+1Tg==')
 

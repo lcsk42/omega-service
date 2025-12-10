@@ -41,10 +41,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     @Override
     public TokenVO createToken(UserLoginDTO userLoginDTO) {
-        String usernameOrMailOrPhone = userLoginDTO.getUsernameOrMailOrPhone();
+        String usernameOrEmailOrMobile = userLoginDTO.getUsernameOrEmailOrMobile();
         String password = userLoginDTO.getPassword();
 
-        SystemUserVO user = systemUserClient.getByUsernameOrMailOrPhone(usernameOrMailOrPhone);
+        SystemUserVO user = systemUserClient.getByUsernameOrEmailOrMobile(usernameOrEmailOrMobile);
 
         if (Objects.isNull(user)
                 || !PasswordUtil.verifyPassword(password, user.getPassword(), user.getSalt())) {
@@ -57,7 +57,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                 SystemUserVO.Fields.departmentId, user.getDepartmentId(),
                 SystemUserVO.Fields.username, user.getUsername(),
                 SystemUserVO.Fields.email, user.getEmail(),
-                SystemUserVO.Fields.phone, user.getPhone(),
+                SystemUserVO.Fields.mobile, user.getMobile(),
                 SystemUserVO.Fields.internal, user.getInternal());
 
         String accessToken = JwtUtil.generateToken(claims, secret, TEN_MINUTE);

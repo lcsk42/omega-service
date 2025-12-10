@@ -12,13 +12,13 @@ import java.util.Optional;
 public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemUserPO>
         implements SystemUserService {
     @Override
-    public Optional<SystemUserPO> getByUsernameOrMailOrPhone(String usernameOrMailOrPhone) {
+    public Optional<SystemUserPO> getByUsernameOrEmailOrMobile(String usernameOrMailOrPhone) {
         return lambdaQuery()
                 .eq(SystemUserPO::getUsername, usernameOrMailOrPhone)
                 .or()
                 .eq(SystemUserPO::getEmail, usernameOrMailOrPhone)
                 .or()
-                .eq(SystemUserPO::getPhone, usernameOrMailOrPhone)
+                .eq(SystemUserPO::getMobile, usernameOrMailOrPhone)
                 .oneOpt();
     }
 }
