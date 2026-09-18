@@ -32,6 +32,7 @@
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <omega.version>1.0.0</omega.version>
+        <spring-boot.version>3.3.13</spring-boot.version>
     </properties>
 
     <dependencies>

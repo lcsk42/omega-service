@@ -8,11 +8,16 @@ import lombok.NoArgsConstructor;
 public final class CsRedisKeyConstant {
     private static final String ROOT_PREFIX = "cs";
 
-    public static class ChatConfig {
-        private static final String PREFIX = CacheUtil.buildKey(ROOT_PREFIX, "chat-config");
 
-        public static String getCacheKey(Long id) {
-            return CacheUtil.buildKey(PREFIX, id.toString());
-        }
+    public static String getChatConfigKey(Long configId) {
+        return CacheUtil.buildKey(ROOT_PREFIX, "chat-config", configId.toString());
+    }
+
+    public static String getWebsocketSession(String client) {
+        return CacheUtil.buildKey(ROOT_PREFIX, "websocket-session", client);
+    }
+
+    public static String getWebsocketSessionContent(String client) {
+        return CacheUtil.buildKey(ROOT_PREFIX, "websocket-session", "content", client);
     }
 }

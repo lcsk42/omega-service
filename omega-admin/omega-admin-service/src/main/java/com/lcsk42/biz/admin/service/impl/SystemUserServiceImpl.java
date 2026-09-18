@@ -1,9 +1,10 @@
 package com.lcsk42.biz.admin.service.impl;
 
 import com.lcsk42.biz.admin.mapper.SystemUserMapper;
-import com.lcsk42.biz.admin.model.SystemUserPO;
+import com.lcsk42.biz.admin.model.po.SystemUserPO;
 import com.lcsk42.biz.admin.service.SystemUserService;
 import com.lcsk42.frameworks.starter.database.mybatisplus.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,11 +15,11 @@ public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemU
     @Override
     public Optional<SystemUserPO> getByUsernameOrEmailOrMobile(String usernameOrMailOrPhone) {
         return lambdaQuery()
-                .eq(SystemUserPO::getUsername, usernameOrMailOrPhone)
+                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getUsername, usernameOrMailOrPhone)
                 .or()
-                .eq(SystemUserPO::getEmail, usernameOrMailOrPhone)
+                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getEmail, usernameOrMailOrPhone)
                 .or()
-                .eq(SystemUserPO::getMobile, usernameOrMailOrPhone)
+                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getMobile, usernameOrMailOrPhone)
                 .oneOpt();
     }
 }

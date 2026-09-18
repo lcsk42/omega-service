@@ -30,6 +30,7 @@ public enum DaysOfWeekBitEnum implements BaseEnum<Integer> {
     All(0b01111111, "全选"),
 
     ;
+
     private final Integer value;
 
     private final String description;
@@ -38,7 +39,7 @@ public enum DaysOfWeekBitEnum implements BaseEnum<Integer> {
      * 判断某天是否在提供的值中
      *
      * @param targetValue 组合后的需要判断的值
-     * @param day         需要判断的天
+     * @param day 需要判断的天
      * @return boolean
      */
     public static boolean contains(int targetValue, DaysOfWeekBitEnum day) {
@@ -51,6 +52,7 @@ public enum DaysOfWeekBitEnum implements BaseEnum<Integer> {
      * @return DaysOfWeekBitEnum
      */
     public static DaysOfWeekBitEnum getToday() {
-        return BaseEnum.fromValue(1 << (LocalDate.now().getDayOfWeek().getValue() - 1), DaysOfWeekBitEnum.class);
+        return BaseEnum.fromValue(1 << (LocalDate.now().getDayOfWeek().getValue() - 1),
+                DaysOfWeekBitEnum.class);
     }
 }

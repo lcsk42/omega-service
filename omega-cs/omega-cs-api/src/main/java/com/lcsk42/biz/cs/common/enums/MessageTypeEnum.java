@@ -12,6 +12,7 @@ public enum MessageTypeEnum implements BaseEnum<Integer> {
     FILE(3, "文件消息"),
     NOTIFICATION(4, "系统通知"),
     ;
+
     private final Integer value;
 
     private final String description;

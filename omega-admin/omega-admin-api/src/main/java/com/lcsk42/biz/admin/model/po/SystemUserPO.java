@@ -1,4 +1,4 @@
-package com.lcsk42.biz.admin.model;
+package com.lcsk42.biz.admin.model.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,13 +21,12 @@ import java.time.LocalDateTime;
 @FieldNameConstants
 @TableName("system_user")
 public class SystemUserPO {
-
     @TableId
     @Schema(description = "主键")
     private Long id;
 
-    @Schema(description = "部门ID")
-    private Long departmentId;
+    @Schema(description = "组织ID")
+    private Long orgId;
 
     @Schema(description = "用户名")
     private String username;

@@ -18,7 +18,7 @@ public class SystemUserVO {
     private Long id;
 
     @Schema(description = "部门ID")
-    private Long departmentId;
+    private Long orgId;
 
     @Schema(description = "用户名")
     private String username;

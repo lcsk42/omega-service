@@ -7,8 +7,8 @@ import com.lcsk42.biz.cs.model.dto.ChatRecordDTO;
 import com.lcsk42.biz.cs.model.dto.ChatRecordPageDTO;
 import com.lcsk42.biz.cs.model.vo.ChatRecordVO;
 import com.lcsk42.biz.cs.service.ChatRecordService;
-import com.lcsk42.frameworks.starter.database.core.model.response.BasePageResponse;
-import com.lcsk42.frameworks.starter.database.mybatisplus.model.page.PageResponse;
+import com.lcsk42.frameworks.starter.convention.model.response.PageResult;
+import com.lcsk42.frameworks.starter.database.mybatisplus.model.page.PageResults;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +40,9 @@ public class ChatRecordController {
 
     @GetMapping("/page")
     @Operation(summary = "留言信息(page)", description = "列表查看")
-    public BasePageResponse<ChatRecordVO> page(@ModelAttribute @ParameterObject ChatRecordPageDTO chatRecordPageDTO) {
+    public PageResult<ChatRecordVO> page(
+            @ModelAttribute @ParameterObject ChatRecordPageDTO chatRecordPageDTO) {
         Page<ChatRecordPO> page = chatRecordService.page(chatRecordPageDTO);
-        return PageResponse.of(page, ChatRecordConverter.INSTANCE::toV);
+        return PageResults.of(page, ChatRecordConverter.INSTANCE::toV);
     }
 }

@@ -13,6 +13,7 @@ public enum ConnectRuleEnum implements BaseEnum<Integer> {
     AI_PRIORITY(2, "优先接入 AI 客服，访客手动转人工时，再接入人工客服"),
 
     ;
+
     private final Integer value;
 
     private final String description;

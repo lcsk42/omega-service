@@ -15,11 +15,11 @@ spring:
 
 framework:
   gateway:
+    validate-token: false
     token-secret: ${FRAMEWORK_GATEWAY_TOKEN_SECRET}
     allow-list:
       - method: POST
-        path: /omega-authorization-service/login
-      - path: /omega-cs-service/**
+        path: /omega-authorization-service/authorization/login
 
 
 knife4j:

@@ -54,7 +54,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         Long id = user.getId();
         Map<String, Object> claims = Map.of(
                 SystemUserVO.Fields.id, id,
-                SystemUserVO.Fields.departmentId, user.getDepartmentId(),
+                SystemUserVO.Fields.orgId, user.getOrgId(),
                 SystemUserVO.Fields.username, user.getUsername(),
                 SystemUserVO.Fields.email, user.getEmail(),
                 SystemUserVO.Fields.mobile, user.getMobile(),

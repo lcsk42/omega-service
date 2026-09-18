@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface ChatRecordConverter extends TriConverter<ChatRecordPO, ChatRecordDTO, ChatRecordVO> {
+public interface ChatRecordConverter
+        extends TriConverter<ChatRecordPO, ChatRecordDTO, ChatRecordVO> {
     ChatRecordConverter INSTANCE = Mappers.getMapper(ChatRecordConverter.class);
 }

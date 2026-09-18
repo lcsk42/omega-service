@@ -21,9 +21,9 @@ public class ChatConfigServiceImpl
 
     @Override
     public ChatConfigPO getOrCreate() {
-        String cacheKey = CsRedisKeyConstant.ChatConfig.getCacheKey(0L);
-        if (cache.exists(cacheKey)) {
-            return cache.get(cacheKey, ChatConfigPO.class);
+        String chatConfigKey = CsRedisKeyConstant.getChatConfigKey(0L);
+        if (cache.exists(chatConfigKey)) {
+            return cache.get(chatConfigKey, ChatConfigPO.class);
         }
         ChatConfigPO configPO = lambdaQuery().oneOpt()
                 .orElseGet(() -> {
@@ -32,14 +32,14 @@ public class ChatConfigServiceImpl
                     save(chatConfigPO);
                     return chatConfigPO;
                 });
-        cache.put(cacheKey, configPO, Duration.ofDays(1));
+        cache.put(chatConfigKey, configPO, Duration.ofDays(1));
         return configPO;
     }
 
     @Override
     public ChatConfigPO update(ChatConfigPO chatConfigPO) {
         updateById(chatConfigPO);
-        cache.delete(CsRedisKeyConstant.ChatConfig.getCacheKey(chatConfigPO.getId()));
+        cache.delete(CsRedisKeyConstant.getChatConfigKey(chatConfigPO.getId()));
         return chatConfigPO;
     }
 }

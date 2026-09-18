@@ -1,9 +1,10 @@
-package com.lcsk42.biz.admin.model;
+package com.lcsk42.biz.admin.model.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.lcsk42.biz.admin.common.enums.PermissionTypeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,29 +19,29 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @FieldNameConstants
-@TableName("system_department")
-public class SystemDepartmentPO {
+@TableName("system_permission")
+public class SystemPermissionPO {
     @TableId
     @Schema(description = "主键")
     private Long id;
 
-    @Schema(description = "父部门id")
-    private Long parentId;
+    @Schema(description = "权限标识")
+    private String permissionCode;
 
-    @Schema(description = "祖级列表")
-    private String ancestors;
+    @Schema(description = "权限名称")
+    private String permissionMame;
 
-    @Schema(description = "名称")
-    private String name;
+    @Schema(description = "类型")
+    private PermissionTypeEnum permissionType;
 
-    @Schema(description = "简称")
-    private String abbreviation;
+    @Schema(description = "关联菜单ID")
+    private Long menuId;
 
-    @Schema(description = "编码")
-    private String code;
+    @Schema(description = "HTTP方法")
+    private String httpMethod;
 
-    @Schema(description = "层级")
-    private Integer level;
+    @Schema(description = "接口路径")
+    private String apiPath;
 
     @Schema(description = "显示顺序")
     private Integer sortOrder;
