@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 
 @Slf4j
@@ -70,8 +71,8 @@ public class FileController {
     @Log
     @GetMapping("/pre-signed-download-url/{id}")
     @Operation(summary = "生成预签名下载URL", description = "生成用于下载文件的预签名URL")
-    public URL generatePreSignedDownloadUrl(@PathVariable("id") Long id) {
-        return fileClient.generatePreSignedDownloadUrl(id);
+    public URL generatePreSignedDownloadUrl(@PathVariable("id") Long id, @RequestParam(required = false, defaultValue = "PT24H") Duration signatureDuration) {
+        return fileClient.generatePreSignedDownloadUrl(id, signatureDuration);
     }
 
     @GetMapping("/info/{id}")
@@ -107,13 +108,15 @@ public class FileController {
             @RequestParam(name = "publicRead", required = false) @Parameter(description = "文件是否公开可读", example = "false") Boolean publicRead,
             @RequestParam(name = "batchId", required = false) @Parameter(description = "用于分组文件的批次ID（如未提供则自动生成）") String batchId,
             @RequestParam(name = "id", required = false) @Parameter(description = "文件的自定义ID（如未提供则自动生成）") Long id,
-            @RequestParam(name = "name", required = false) @Parameter(description = "文件的自定义名称（如未提供则使用默认文件名）") String name
+            @RequestParam(name = "name", required = false) @Parameter(description = "文件的自定义名称（如未提供则使用默认文件名）") String name,
+            @RequestParam(required = false, defaultValue = "PT15M") Duration signatureDuration
     ) {
         return fileClient.generatePreSignedUploadUrl(
                 ObjectUtils.defaultIfNull(bizSource, BizSourceEnum.DEFAULT),
                 ObjectUtils.defaultIfNull(publicRead, Boolean.FALSE), StringUtils.defaultIfBlank(batchId, IdUtil.generateCompactUuid()),
                 ObjectUtils.defaultIfNull(id, IdUtil.getSnowflakeNextId()),
-                StringUtils.defaultIfBlank(name, "unnamed_file.unknown")
+                StringUtils.defaultIfBlank(name, "unnamed_file.unknown"),
+                signatureDuration
         );
     }
 

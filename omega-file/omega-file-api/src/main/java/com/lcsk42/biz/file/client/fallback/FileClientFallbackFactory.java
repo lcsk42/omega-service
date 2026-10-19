@@ -10,6 +10,7 @@ import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 
 public class FileClientFallbackFactory implements FallbackFactory<FileClient> {
@@ -27,7 +28,7 @@ public class FileClientFallbackFactory implements FallbackFactory<FileClient> {
             }
 
             @Override
-            public URL generatePreSignedDownloadUrl(Long id) {
+            public URL generatePreSignedDownloadUrl(Long id, Duration signatureDuration) {
                 return null;
             }
 
@@ -52,7 +53,7 @@ public class FileClientFallbackFactory implements FallbackFactory<FileClient> {
             }
 
             @Override
-            public URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead, String batchId, Long id, String name) {
+            public URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead, String batchId, Long id, String name, Duration signatureDuration) {
                 return null;
             }
 

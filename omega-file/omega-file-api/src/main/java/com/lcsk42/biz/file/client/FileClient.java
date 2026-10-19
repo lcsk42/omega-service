@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 
 @FeignClient(name = FileConstant.SERVICE_NAME,
@@ -46,7 +47,7 @@ public interface FileClient {
 
     @GetMapping("/pre-signed-download-url/{id}")
     @Operation(summary = "生成预签名下载URL", description = "生成用于下载文件的预签名URL")
-    URL generatePreSignedDownloadUrl(@PathVariable("id") Long id);
+    URL generatePreSignedDownloadUrl(@PathVariable("id") Long id, @RequestParam(required = false, defaultValue = "PT24H") Duration signatureDuration);
 
     @GetMapping("/info/{id}")
     @Operation(summary = "根据文件 id 查询上传的文件信息", description = "查询文件 id 对应的文件信息")
@@ -71,7 +72,8 @@ public interface FileClient {
             @RequestParam(name = "publicRead", required = false) Boolean publicRead,
             @RequestParam(name = "batchId", required = false) String batchId,
             @RequestParam(name = "id", required = false) Long id,
-            @RequestParam(name = "name", required = false) String name
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(required = false, defaultValue = "PT15M") Duration signatureDuration
     );
 
     @PutMapping("/file-metadata")

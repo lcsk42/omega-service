@@ -144,12 +144,12 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FilePO>
     }
 
     @Override
-    public URL generatePreSignedDownloadUrl(Long id) {
+    public URL generatePreSignedDownloadUrl(Long id, Duration signatureDuration) {
         return getById(id).map(adminFileVO ->
                 fileService.generatePreSignedDownloadUrl(
                         adminFileVO.getFilePath(),
                         adminFileVO.getBucketName(),
-                        Duration.ofDays(1)
+                        signatureDuration
                 )
         ).orElse(null);
     }
@@ -159,7 +159,8 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FilePO>
                                           Boolean publicRead,
                                           String batchId,
                                           Long id,
-                                          String fileName) {
+                                          String fileName,
+                                          Duration signatureDuration) {
 
         String path = fileService.buildKey(fileName, false);
         String bucketName = getBucketName(publicRead);
@@ -178,7 +179,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FilePO>
                 .build();
         save(filePO);
 
-        return fileService.generatePreSignedUploadUrl(path, bucketName, Duration.ofMinutes(15));
+        return fileService.generatePreSignedUploadUrl(path, bucketName, signatureDuration);
     }
 
     @Override
