@@ -4,8 +4,9 @@ import com.lcsk42.biz.admin.client.fallback.SystemPermissionClientFallbackFactor
 import com.lcsk42.biz.admin.common.constant.AdminConstant;
 import org.springframework.cloud.openfeign.FeignClient;
 
-@FeignClient(name = AdminConstant.SERVICE_NAME + "-permission",
+@FeignClient(name = AdminConstant.SERVICE_NAME,
         path = "/permission",
+        contextId = "SystemPermissionClient",
         fallbackFactory = SystemPermissionClientFallbackFactory.class)
 public interface SystemPermissionClient {
 

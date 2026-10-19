@@ -4,8 +4,9 @@ import com.lcsk42.biz.admin.client.fallback.SystemOrgClientFallbackFactory;
 import com.lcsk42.biz.admin.common.constant.AdminConstant;
 import org.springframework.cloud.openfeign.FeignClient;
 
-@FeignClient(name = AdminConstant.SERVICE_NAME + "-org",
+@FeignClient(name = AdminConstant.SERVICE_NAME,
         path = "/org",
+        contextId = "SystemOrgClient",
         fallbackFactory = SystemOrgClientFallbackFactory.class)
 public interface SystemOrgClient {
 
