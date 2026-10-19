@@ -18,7 +18,8 @@ public class FileClientFallbackFactory implements FallbackFactory<FileClient> {
     public FileClient create(Throwable cause) {
         return new FileClient() {
             @Override
-            public FileVO upload(MultipartFile file, BizSourceEnum bizSource, Boolean publicRead, String batchId, Long id, String name) {
+            public FileVO upload(MultipartFile file, BizSourceEnum bizSource, Boolean publicRead,
+                    String batchId, Long id, String name) {
                 return new FileVO();
             }
 
@@ -53,7 +54,8 @@ public class FileClientFallbackFactory implements FallbackFactory<FileClient> {
             }
 
             @Override
-            public URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead, String batchId, Long id, String name, Duration signatureDuration) {
+            public URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead,
+                    String batchId, Long id, String name, Duration signatureDuration) {
                 return null;
             }
 

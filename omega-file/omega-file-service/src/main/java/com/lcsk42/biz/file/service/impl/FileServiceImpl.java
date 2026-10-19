@@ -38,11 +38,11 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FilePO>
 
     @Override
     public FilePO upload(MultipartFile file,
-                         BizSourceEnum bizSource,
-                         Boolean publicRead,
-                         String batchId,
-                         Long id,
-                         String fileName) {
+            BizSourceEnum bizSource,
+            Boolean publicRead,
+            String batchId,
+            Long id,
+            String fileName) {
         String path;
         String bucketName = getBucketName(publicRead);
         try {
@@ -114,11 +114,9 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FilePO>
 
     @Override
     public Boolean deleteById(Long id) {
-        return getById(id).map(filePO ->
-                lambdaUpdate()
-                        .eq(FilePO::getId, id)
-                        .remove()
-        ).orElse(Boolean.FALSE);
+        return getById(id).map(filePO -> lambdaUpdate()
+                .eq(FilePO::getId, id)
+                .remove()).orElse(Boolean.FALSE);
     }
 
     @Override
@@ -145,22 +143,19 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FilePO>
 
     @Override
     public URL generatePreSignedDownloadUrl(Long id, Duration signatureDuration) {
-        return getById(id).map(adminFileVO ->
-                fileService.generatePreSignedDownloadUrl(
-                        adminFileVO.getFilePath(),
-                        adminFileVO.getBucketName(),
-                        signatureDuration
-                )
-        ).orElse(null);
+        return getById(id).map(adminFileVO -> fileService.generatePreSignedDownloadUrl(
+                adminFileVO.getFilePath(),
+                adminFileVO.getBucketName(),
+                signatureDuration)).orElse(null);
     }
 
     @Override
     public URL generatePreSignedUploadUrl(BizSourceEnum bizSource,
-                                          Boolean publicRead,
-                                          String batchId,
-                                          Long id,
-                                          String fileName,
-                                          Duration signatureDuration) {
+            Boolean publicRead,
+            String batchId,
+            Long id,
+            String fileName,
+            Duration signatureDuration) {
 
         String path = fileService.buildKey(fileName, false);
         String bucketName = getBucketName(publicRead);

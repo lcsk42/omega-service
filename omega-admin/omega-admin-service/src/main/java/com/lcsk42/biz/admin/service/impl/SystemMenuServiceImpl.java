@@ -17,11 +17,16 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
     @Override
     public Page<SystemMenuPO> page(SystemMenuDTO systemMenuDTO) {
         return lambdaQuery()
-                        .like(StringUtils.isNotBlank(systemMenuDTO.getMenuName()), SystemMenuPO::getMenuName, systemMenuDTO.getMenuName())
-                        .like(StringUtils.isNotBlank(systemMenuDTO.getPath()), SystemMenuPO::getPath, systemMenuDTO.getPath())
-                        .eq(Objects.nonNull(systemMenuDTO.getVisible()), SystemMenuPO::getVisible, systemMenuDTO.getVisible())
-                        .eq(Objects.nonNull(systemMenuDTO.getFrame()), SystemMenuPO::getFrame, systemMenuDTO.getFrame())
-                        .eq(Objects.nonNull(systemMenuDTO.getCache()), SystemMenuPO::getCache, systemMenuDTO.getCache())
-                        .page(Page.of(systemMenuDTO.getCurrent(), systemMenuDTO.getSize()));
+                .like(StringUtils.isNotBlank(systemMenuDTO.getMenuName()),
+                        SystemMenuPO::getMenuName, systemMenuDTO.getMenuName())
+                .like(StringUtils.isNotBlank(systemMenuDTO.getPath()), SystemMenuPO::getPath,
+                        systemMenuDTO.getPath())
+                .eq(Objects.nonNull(systemMenuDTO.getVisible()), SystemMenuPO::getVisible,
+                        systemMenuDTO.getVisible())
+                .eq(Objects.nonNull(systemMenuDTO.getFrame()), SystemMenuPO::getFrame,
+                        systemMenuDTO.getFrame())
+                .eq(Objects.nonNull(systemMenuDTO.getCache()), SystemMenuPO::getCache,
+                        systemMenuDTO.getCache())
+                .page(Page.of(systemMenuDTO.getCurrent(), systemMenuDTO.getSize()));
     }
 }

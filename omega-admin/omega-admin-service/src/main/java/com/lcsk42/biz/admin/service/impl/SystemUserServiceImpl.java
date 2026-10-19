@@ -15,11 +15,14 @@ public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemU
     @Override
     public Optional<SystemUserPO> getByUsernameOrEmailOrMobile(String usernameOrMailOrPhone) {
         return lambdaQuery()
-                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getUsername, usernameOrMailOrPhone)
+                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getUsername,
+                        usernameOrMailOrPhone)
                 .or()
-                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getEmail, usernameOrMailOrPhone)
+                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getEmail,
+                        usernameOrMailOrPhone)
                 .or()
-                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getMobile, usernameOrMailOrPhone)
+                .eq(StringUtils.isNotBlank(usernameOrMailOrPhone), SystemUserPO::getMobile,
+                        usernameOrMailOrPhone)
                 .oneOpt();
     }
 }

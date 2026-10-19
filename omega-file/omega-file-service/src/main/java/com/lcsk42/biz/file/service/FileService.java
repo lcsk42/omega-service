@@ -15,11 +15,11 @@ import java.util.Optional;
 public interface FileService extends IService<FilePO> {
 
     FilePO upload(MultipartFile file,
-                  BizSourceEnum bizSource,
-                  Boolean publicRead,
-                  String batchId,
-                  Long id,
-                  String fileName);
+            BizSourceEnum bizSource,
+            Boolean publicRead,
+            String batchId,
+            Long id,
+            String fileName);
 
     FilePO uploadTempFile(MultipartFile file, String batchId);
 
@@ -36,7 +36,7 @@ public interface FileService extends IService<FilePO> {
     URL generatePreSignedDownloadUrl(Long id, Duration signatureDuration);
 
     URL generatePreSignedUploadUrl(BizSourceEnum bizSource, Boolean publicRead, String batchId,
-                                   Long id, String fileName, Duration signatureDuration);
+            Long id, String fileName, Duration signatureDuration);
 
     FilePO updateFileMetadata(FileMetadataDTO fileMetadataDTO);
 }

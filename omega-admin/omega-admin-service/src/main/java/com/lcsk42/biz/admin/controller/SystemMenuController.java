@@ -27,6 +27,7 @@ public class SystemMenuController {
     @GetMapping("/page")
     @Operation(summary = "查询菜单信息", description = "根据条件查询菜单列表")
     public PageResult<SystemMenuVO> page(@ParameterObject SystemMenuDTO SystemMenuDTO) {
-        return PageResults.of(systemMenuService.page(SystemMenuDTO), SystemMenuConverter.INSTANCE::toT);
+        return PageResults.of(systemMenuService.page(SystemMenuDTO),
+                SystemMenuConverter.INSTANCE::toT);
     }
 }

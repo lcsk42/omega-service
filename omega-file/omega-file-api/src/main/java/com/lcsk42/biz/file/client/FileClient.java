@@ -38,8 +38,7 @@ public interface FileClient {
             @RequestParam(name = "publicRead", required = false) Boolean publicRead,
             @RequestParam(name = "batchId", required = false) String batchId,
             @RequestParam(name = "id", required = false) Long id,
-            @RequestParam(name = "name", required = false) String name
-    );
+            @RequestParam(name = "name", required = false) String name);
 
     @GetMapping("/download/{id}")
     @Operation(summary = "下载文件", description = "管理员下载文件的端点")
@@ -47,7 +46,8 @@ public interface FileClient {
 
     @GetMapping("/pre-signed-download-url/{id}")
     @Operation(summary = "生成预签名下载URL", description = "生成用于下载文件的预签名URL")
-    URL generatePreSignedDownloadUrl(@PathVariable("id") Long id, @RequestParam(required = false, defaultValue = "PT24H") Duration signatureDuration);
+    URL generatePreSignedDownloadUrl(@PathVariable("id") Long id,
+            @RequestParam(required = false, defaultValue = "PT24H") Duration signatureDuration);
 
     @GetMapping("/info/{id}")
     @Operation(summary = "根据文件 id 查询上传的文件信息", description = "查询文件 id 对应的文件信息")
@@ -73,8 +73,7 @@ public interface FileClient {
             @RequestParam(name = "batchId", required = false) String batchId,
             @RequestParam(name = "id", required = false) Long id,
             @RequestParam(name = "name", required = false) String name,
-            @RequestParam(required = false, defaultValue = "PT15M") Duration signatureDuration
-    );
+            @RequestParam(required = false, defaultValue = "PT15M") Duration signatureDuration);
 
     @PutMapping("/file-metadata")
     @Operation(summary = "更新文件元数据", description = "更新现有文件的元数据")
